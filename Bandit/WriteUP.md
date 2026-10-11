@@ -126,9 +126,23 @@ PK8**************************ToB
 
 ### Level 2 $\rightarrow$ Level 3
 
+下一关的密码存储在 ```home``` 目录中下 ```--spaces in this filename--``` 文件中
+
+使用 **Level 2** 的密码和 bandit2 账号登录
+
+列出 ```home``` 下的目录和文件
+
+```bash
+ls
+```
+
+发现有一个 ```--spaces in this filename--``` 文件，查看其内容
+
 ```bash
 cat ./"--spaces in this filename--"
 ```
+
+找到了 **Level 3** 的密码：
 
 ```text
 7ZZ**************************PME
