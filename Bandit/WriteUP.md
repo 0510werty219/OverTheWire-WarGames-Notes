@@ -104,7 +104,7 @@ cat readme
 
 下一关的密码存储在 ```home``` 目录中下 ```-``` 文件中
 
-使用 **Level 1** 的密码和 bandit1 账号登录
+使用 **Level 1** 的账号密码登录
 
 列出 ```home``` 下的目录和文件
 
@@ -128,7 +128,7 @@ PK8**************************ToB
 
 下一关的密码存储在 ```home``` 目录中下 ```--spaces in this filename--``` 文件中
 
-使用 **Level 2** 的密码和 bandit2 账号登录
+使用 **Level 2** 的账号密码登录
 
 列出 ```home``` 下的目录和文件
 
@@ -146,6 +146,97 @@ cat ./"--spaces in this filename--"
 
 ```text
 7ZZ**************************PME
+```
+
+### Level 3 $\rightarrow$ Level 4
+
+下一关的密码存储在 ```inhere``` 目录中的一个隐藏文件中。
+
+使用 **Level 3** 的账号和密码登录
+
+列出 ```home``` 下的目录和文件
+
+```bash
+ls
+```
+
+发现有一个 ```inhere``` 目录
+
+列出 ```inhere``` 下的所有目录和文件
+
+```bash
+ls -al
+```
+
+发现有一个 ```...Hiding-From-You``` 文件，查看其内容
+
+```bash
+cat ./"...Hiding-From-You"
+```
+
+找到了 **Level 4** 的密码：
+
+```text
+xzT**************************AMq
+```
+
+### Level 4 $\rightarrow$ Level 5
+
+>[!NOTE]
+>
+>需要掌握的命令：
+>
+>```file```
+
+下一关的密码存储在 inhere 目录中唯一人类可读的文件里。
+
+使用 **Level 4** 的账号和密码登录
+
+列出 ```home``` 下的目录和文件
+
+```bash
+ls
+```
+
+发现有一个 ```inhere``` 目录
+
+列出 ```inhere``` 下的所有目录和文件
+
+```bash
+ls -al
+```
+
+发现有 ```-file00```、```-file01``` $\cdots$ ```-file09```
+
+查看这些文件的文件类型
+
+```bash
+file ./*
+```
+
+```text
+./-file00: data
+./-file01: data
+./-file02: data
+./-file03: data
+./-file04: data
+./-file05: data
+./-file06: data
+./-file07: ASCII text
+./-file08: data
+./-file09: data
+```
+
+发现只有 ```-file07``` 是 ASCII 文本文件，查看其内容
+
+```bash
+cat ./"-file07"
+```
+
+找到了 **Level 5** 的密码：
+
+```text
+6C7**************************IrG
 ```
 
 ---
