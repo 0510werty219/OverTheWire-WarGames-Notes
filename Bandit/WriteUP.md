@@ -208,6 +208,8 @@ ls -al
 
 ```bash
 file ./*
+# 符号“*”为通配符，能替代任意个任意字符（包括零个字符）
+# 通配符“?”则只能代替一个任意字符
 ```
 
 ```text
@@ -243,7 +245,7 @@ cat ./"-file07"
 >
 >```find```
 
-下一级的密码存储在 inhere 目录下的某个文件中，该文件具有以下所有属性：
+下一关的密码存储在 inhere 目录下的某个文件中，该文件具有以下所有属性：
 
 1. 可读（人类可读）
 2. 大小为 $1033$ 字节
@@ -394,6 +396,168 @@ cat ./".file2"
 
 ```text
 pXa**************************SBW
+```
+
+### Level 6 $\rightarrow$ Level 7
+
+下一关的密码存储在服务器上的某个位置，并具有以下所有属性:
+
+1. 由用户 ```bandit7``` 拥有
+2. 由组 ```bandit6``` 拥有
+3. 大小为 $33$ 字节
+
+使用 **Level 6** 的账号和密码登录
+
+使用命令进行查找
+
+```bash
+find / -type f -user bandit7 -group bandit6 -size 33c 2>/dev/null
+# -user bandit7 表示属主为 bandit7
+# -group bandit6 表示属组为 bandit6
+# 2 为 stderr（标准错误输出）。shell 默认：0=键盘输入，1=正常结果，2=错误信息
+# > 为重定向符号，把输出改道到别处（默认是屏幕）
+# /dev/null Linux 系统中的一个类似于垃圾桶的字符设备，对所有输入直接丢弃，常用于丢弃输出中的报错
+```
+
+返回满足条件的文件路径：
+
+```text
+/var/lib/dpkg/info/bandit7.password
+```
+
+根据路径打开文件
+
+```bash
+cat /var/lib/dpkg/info/bandit7.password
+```
+
+找到 **Level 7** 的密码：
+
+```text
+Bmn**************************3E3
+```
+
+### Level 7 $\rightarrow$ Level 8
+
+>[!NOTE]
+>
+>需要掌握的命令：
+>
+>```|```，```grep```
+
+下一关的密码存储在文件 ```data.txt``` 中，词 "millionth" 旁边。
+
+使用 **Level 7** 的账号和密码登录
+
+列出 ```home``` 下的目录和文件
+
+```bash
+ls
+```
+
+发现有一个 ```data.txt``` 文件
+
+使用命令进行查找
+
+```bash
+cat data.txt | grep millionth
+# | 是管道操作符，基本使用形式是：
+# “命令1 | 命令2 [| 命令3 [| 命令 4 ...]]”
+# 前一个命令的输出结果作为后一个命令的输入
+# grep 是一个文本检索工具，常见用法：
+# grep [option] pattern file
+# cat file | grep [option] pattern
+# ls directory | grep [option] pattern
+```
+
+输出：
+
+```text
+millionth       VR1**************************tub
+```
+
+显然后半段是 **Level 8** 的密码：
+
+```text
+VR1**************************tub
+```
+
+### Level 8 $\rightarrow$ Level 9
+
+>[!NOTE]
+>
+>需要掌握的命令：
+>
+>```sort```，```uniq```
+
+下一关的密码存储在 ```data.txt``` 文件中，是唯一出现一次的文本行。
+
+使用 **Level 8** 的账号和密码登录
+
+列出 ```home``` 下的目录和文件
+
+```bash
+ls
+```
+
+发现有一个 ```data.txt``` 文件
+
+使用命令进行查找
+
+```bash
+cat data.txt | sort | uniq -u
+# sort 用于文本的行排序。默认排序方式是升序，按每行的字典序排序。
+# uniq 用来排除连续的重复的行（类似集合，重复的行只留一个）
+# uniq -u 用于输出仅出现一次的行
+```
+
+找到 **Level 9** 的密码：
+
+```text
+EjmOSvuAu7sGAHqHVcBDPirRe9T03kxl
+```
+
+### Level 9 $\rightarrow$ Level 10
+
+>[!NOTE]
+>
+>需要掌握的命令：
+>
+>```strings```
+
+下一关的密码存储在 ```data.txt``` 文件中，以多个 “=” 字符开头，是少数人类可读字符串之一。
+
+使用 **Level 9** 的账号和密码登录
+
+列出 ```home``` 下的目录和文件
+
+```bash
+ls
+```
+
+发现有一个 ```data.txt``` 文件
+
+使用命令进行查找
+
+```bash
+strings data.txt | grep ===
+# strings 会把文件里所有连续的可打印字符序列提取出来
+# strings [option] [file(stdin default)]
+```
+
+输出：
+
+```text
+\========== the
+========== password
+<u*========== is
+========== B0s**************************3BG
+```
+
+找到 **Level 10** 的密码：
+
+```text
+B0s**************************3BG
 ```
 
 ---
